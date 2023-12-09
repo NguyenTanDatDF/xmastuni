@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuni Giáng Sinh An Lànhhhhhhhh</title>
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #000;
+    }
+    @media only screen and (max-width: 800px) {
+      
+    }
+    #tree {
+      color: green;
+      font-size: 24px;
+      
+    }
+
+    .baubleRed {
+      color: #EE4B2B;
+      font-size: 25px;
+    }
+
+    .baubleBlue {
+      color: #05D5FA;
+      font-size: 25px;
+    }
+
+    .baubleYellow {
+      color: #FFEA00;
+      font-size: 25px;
+    }
+
+    #star {
+      color: yellow;
+      font-size: 22px;
+      margin-bottom: -30px;
+      line-height: 0.8;
+    }
+
+    #trunk {
+      color: #A1662F;
+      font-size: 30px;
+      margin-top: -30px;
+    }
+
+    .snow-container {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .snowflake {
+      position: absolute;
+      background: #fff;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .name {
+      color: #fff;
+      font-size: 30px;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body onclick="playAudio('mysound.mp3')">
+  <pre id="star"> *
+***
+ *</pre>
+  <pre id="tree"></pre>
+
+
+  <pre id="trunk">||||
+||||
+||||
+||||
+  </pre>
+
+  <div class="snow-container" id="div1">
+    <!-- Your content for div1 here -->
+  </div>
+
+  <div class="snow-container" id="div2">
+    <!-- Your content for div2 here -->
+  </div>
+
+  <div class="name" id="name">Merry Chrismas to
+   Tunii 🤭</div>
+  <script>
+function playAudio(url) {
+  new Audio("https://firebasestorage.googleapis.com/v0/b/admin-sportify.appspot.com/o/Snaptik.app_7178820385138380058.mp3?alt=media&token=ecca6b3b-7842-4815-8667-715c2ae4ad51").play();
+}
+document.body.addEventListener("click", function (evt) {
+    
+      var audio = document.createElement('audio');
+      var source = document.createElement('source');
+      var media = document.getElementById('media');
+      media.appendChild(audio);
+      audio.appendChild(source);
+      source.setAttribute('src', './Snaptik.app_7178820385138380058.mp3');
+      source.setAttribute('type', 'audio/mpeg');
+      audio.setAttribute('autoplay', 'autoplay');
+      log.e("ccwa")
+      
+});
+
+    document.addEventListener("DOMContentLoaded", function () {
+      drawTree();
+
+
+
+      const container1 = document.getElementById('div1');
+      const container2 = document.getElementById('div2');
+
+      createSnowflakes(container1, 50);
+      createSnowflakes(container2, 30);
+      setInterval(changeColor, 2000);
+    });
+
+    function createSnowflakes(container, count) {
+      for (let i = 0; i < count; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        container.appendChild(snowflake);
+
+        animateSnowflake(snowflake);
+      }
+    }
+
+    function animateSnowflake(snowflake) {
+      const speed = Math.random() * 2 + 1;
+      const initialPosition = Math.random() * 100;
+      const rotation = Math.random() * 360;
+
+      snowflake.style.left = initialPosition + 'vw';
+      snowflake.style.animation = `fall ${speed}s linear infinite, rotate ${speed * 5}s linear infinite`;
+      snowflake.style.transform = `rotate(${rotation}deg)`;
+    }
+
+    function drawStar() {
+      const treeHeight = 15;
+
+      const starElement = document.getElementById('star');
+
+      starElement.innerHTML = "******"
+    }
+
+    function drawTree() {
+      const treeHeight = 15;
+
+      // Initial bauble position for each row
+      const baublePositions = Array.from({ length: treeHeight }, () =>
+        Math.floor(Math.random() * treeHeight * 2 - 1)
+      );
+
+      const baubleBluePositions = Array.from({ length: treeHeight }, () =>
+        Math.floor(Math.random() * treeHeight * 2 - 1)
+      );
+
+      const baubleYellowPositions = Array.from({ length: treeHeight }, () =>
+        Math.floor(Math.random() * treeHeight * 2 - 1)
+      );
+
+      let tree = '';
+      for (let i = 0; i < treeHeight; i++) {
+        tree += ' '.repeat(treeHeight - i - 1) + addBaubles(baublePositions[i], baubleBluePositions[i], baubleYellowPositions[i], i) + '\n';
+        // Update bauble position for the next row
+        baublePositions[i] = Math.floor(Math.random() * (2 * i + 1));
+      }
+
+      document.getElementById('tree').innerHTML = star + tree;
+
+      moveBaubles(treeHeight, baublePositions, baubleBluePositions, baubleYellowPositions);
+    }
+
+    function addBaubles(position, positionBlue, positionYellow, level) {
+      let baublesRow = '*';
+
+      for (let i = 0; i < 2 * level; i++) {
+        if (i === position) {
+          baublesRow += '<span class="baubleRed">•</span>';
+        } else {
+          if (i === positionBlue) {
+            baublesRow += '<span class="baubleBlue">•</span>';
+          } else {
+            if (i === positionYellow) {
+              baublesRow += '<span class="baubleYellow">•</span>';
+            } else
+              baublesRow += '*';
+          }
+
+        }
+      }
+
+      return baublesRow + '*';
+    }
+
+    function moveBaubles(treeHeight, baublePositions, baubleBluePositions, baubleYellowPositions) {
+      setInterval(() => {
+        const tree = document.getElementById('tree');
+        const treeRows = tree.textContent.split('\n');
+
+        for (let i = 0; i < treeHeight; i++) {
+          baublePositions[i] = Math.floor(Math.random() * (2 * i + 1));
+          baubleBluePositions[i] = Math.floor(Math.random() * (2 * i + 1));
+          baubleYellowPositions[i] = Math.floor(Math.random() * (2 * i + 1));
+          treeRows[i] = ' '.repeat(treeHeight - i - 1) + addBaubles(baublePositions[i], baubleBluePositions[i], baubleYellowPositions[i], i);
+        }
+
+        tree.innerHTML = treeRows.join('<br>');
+      }, 500); // Move the baubles every 1000 milliseconds (1 second)
+    }
+
+    function getRandomBrightColor() {
+      // Generate random color components biased towards higher values
+      const red = Math.floor(Math.random() * 128) + 128;
+      const green = Math.floor(Math.random() * 128) + 128;
+      const blue = Math.floor(Math.random() * 128) + 128;
+
+      // Convert to hex format
+      const randomColor = `${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
+      return randomColor;
+    }
+
+    function changeColor() {
+      const textElement = document.getElementById('name');
+      const text = textElement.innerText;
+
+      let coloredText = '';
+      for (let i = 0; i < text.length; i++) {
+        // Generate a random color (hex format)
+        const randomColor = getRandomBrightColor();
+
+        // Wrap each character in a span with the random color style
+        coloredText += `<span style="color: #${randomColor};">${text[i]}</span>`;
+      }
+
+      // Update the content with colored text
+      textElement.innerHTML = coloredText;
+    }
+  </script>
+</body>
+
+</html>
